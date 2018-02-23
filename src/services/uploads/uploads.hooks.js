@@ -1,16 +1,16 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const populateUser = require('../../hooks/populate-user');
+
+const dumpContext = context => {
+  console.log(context.data);
+  return context;
+};
 
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [
-      context => {
-        context.data.userId = context.params.user._id;
-      }
-    ],
+    create: [dumpContext],
     update: [],
     patch: [],
     remove: []
@@ -18,8 +18,8 @@ module.exports = {
 
   after: {
     all: [],
-    find: [populateUser()],
-    get: [populateUser()],
+    find: [],
+    get: [],
     create: [],
     update: [],
     patch: [],
