@@ -1,27 +1,34 @@
-# backend
+# Syro
 
 > 
 
 ## About
 
+Backend for Syro Application
+
 This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
 
 ## Getting Started
 
-Getting up and running is as easy as 1, 2, 3.
-
-1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
-2. Install your dependencies
+1. Install dependencies
 
     ```
-    cd path/to/backend; npm install
+    cd path/to/application; npm install
     ```
 
+2. Create a .env file in the root directory (use .envexample) and configure the secret and any other settings necessary 
 3. Start your app
 
     ```
     npm start
     ```
+    
+4. For development, use nodemon, you can start it with 
+
+    ```
+    npm run dev
+    ```
+
 
 ## Testing
 
@@ -39,19 +46,3 @@ $ feathers generate hook                  # Generate a new Hook
 $ feathers generate model                 # Generate a new Model
 $ feathers help                           # Show all commands
 ```
-
-## Help
-
-For more information on all the things you can do with Feathers visit [docs.feathersjs.com](http://docs.feathersjs.com).
-
-## Changelog
-
-__0.1.0__
-
-- Initial release
-
-## License
-
-Copyright (c) 2016
-
-Licensed under the [MIT license](LICENSE).

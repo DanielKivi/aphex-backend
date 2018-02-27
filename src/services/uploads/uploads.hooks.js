@@ -1,16 +1,11 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
-const dumpContext = context => {
-  console.log(context.data);
-  return context;
-};
-
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [dumpContext],
+    create: [],
     update: [],
     patch: [],
     remove: []

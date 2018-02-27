@@ -1,5 +1,7 @@
 {
+  "port": "FEATHERS_PORT",
+  "mongodb": "MONGODB_CONNECTION",
   "authentication": {
-    "secret": "SECRET"
+    "secret": "FEATHERS_SECRET"
   }
 }
