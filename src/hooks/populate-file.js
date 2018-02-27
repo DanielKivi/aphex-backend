@@ -1,4 +1,4 @@
-/** @module hooks/populateFile */
+/** @module hooks/populate-file */
 
 /**
  * Replaces fileId in an object with it's corresponding file object

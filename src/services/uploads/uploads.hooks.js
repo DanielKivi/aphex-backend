@@ -1,4 +1,5 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const addFilePath = require('../../hooks/add-file-path');
 
 module.exports = {
   before: {
@@ -13,9 +14,9 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
-    get: [],
-    create: [],
+    find: [addFilePath()],
+    get: [addFilePath()],
+    create: [addFilePath()],
     update: [],
     patch: [],
     remove: []

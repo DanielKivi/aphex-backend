@@ -2,6 +2,12 @@ const authentication = require('@feathersjs/authentication');
 const jwt = require('@feathersjs/authentication-jwt');
 const local = require('@feathersjs/authentication-local');
 
+const addStrategyIfMissing = (strategy) => {
+  return async context => {
+    if(!context.data.hasOwnProperty('strategy')) context.data.strategy = strategy;
+    return context;
+  };
+};
 
 module.exports = function (app) {
   const config = app.get('authentication');
@@ -17,6 +23,7 @@ module.exports = function (app) {
   app.service('authentication').hooks({
     before: {
       create: [
+        addStrategyIfMissing('local'),
         authentication.hooks.authenticate(config.strategies)
       ],
       remove: [

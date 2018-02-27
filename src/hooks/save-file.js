@@ -1,4 +1,4 @@
-/** @module hooks/saveFile */
+/** @module hooks/save-file */
 
 /**
  * Saves the uri to a file in the specified folder.

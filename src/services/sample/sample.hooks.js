@@ -1,9 +1,9 @@
 /**
  * @module service/Sample
  * @requires module:@feathersjs/authentication
- * @requires module:hooks/populateUser
- * @requires module:hooks/populateFile
- * @requires module:hooks/saveFile
+ * @requires module:hooks/populate-user
+ * @requires module:hooks/populate-file
+ * @requires module:hooks/save-file
  *
  */
 
@@ -37,7 +37,7 @@ module.exports = {
     all: [],
     find: [populateUser(), populateFile()],
     get: [populateUser(), populateFile()],
-    create: [],
+    create: [populateUser(), populateFile()],
     update: [],
     patch: [],
     remove: []
