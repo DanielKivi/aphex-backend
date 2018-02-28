@@ -11,6 +11,7 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 const populateUser = require('../../hooks/populate-user');
 const populateFile = require('../../hooks/populate-file');
 const saveFile = require('../../hooks/save-file');
+const querySample = require('../../hooks/query-sample');
 
 /**
  * Service endpoint hooks
@@ -20,7 +21,7 @@ const saveFile = require('../../hooks/save-file');
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
-    find: [],
+    find: [querySample()],
     get: [],
     create: [
       context => {
