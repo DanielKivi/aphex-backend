@@ -1,6 +1,7 @@
 module.exports = {
   'swagger': '2.0',
   'info': {
+    'description': 'Welcome to the Syro API documentation. The best way to get started is to execute the authentication endpoint with the default values to get a JSON web token. You can the click the Authorize button and enter the token that was returned. It will then take care of passing that token with all other requests',
     'version': '1.0.0',
     'title': 'Syro API'
   },
