@@ -5,7 +5,7 @@
  */
 
 const createService = require('feathers-mongodb');
-const hooks = require('./hooks/User');
+const hooks = require('./users.hooks');
 
 /**
  * Uses a configuration pattern to attach the users service
