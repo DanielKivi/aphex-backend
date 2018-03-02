@@ -1,5 +1,5 @@
 /**
- * @module service/Sample
+ * @module hooks/Sample
  * @requires module:@feathersjs/authentication
  * @requires module:hooks/populate-user
  * @requires module:hooks/populate-file
@@ -16,18 +16,18 @@ const querySample = require('../../hooks/query-sample');
 /**
  * Service endpoint hooks
  * @author Daniel Kivi
- * @type {}
+ * @type Object
  */
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [ authenticate('jwt') ], // Authenticate on all endpoints
     find: [querySample()],
     get: [],
     create: [
-      context => {
+      context => { // Attach the current user's id to the object
         context.data.userId = context.params.user._id;
       },
-      saveFile()
+      saveFile() // Send the data url for saving
     ],
     update: [],
     patch: [],
@@ -36,9 +36,9 @@ module.exports = {
 
   after: {
     all: [],
-    find: [populateUser(), populateFile()],
-    get: [populateUser(), populateFile()],
-    create: [populateUser(), populateFile()],
+    find: [populateUser(), populateFile()], // Replace the fileId with a file object
+    get: [populateUser(), populateFile()], // Replace the fileId with a file object
+    create: [populateUser(), populateFile()], // Replace the fileId with a file object
     update: [],
     patch: [],
     remove: []

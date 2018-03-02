@@ -25,8 +25,13 @@
 module.exports = () => {
   return async context => {
     const {app, method, result, params} = context;
+
+    // If we have an array of data from the find service, return the array.
+    // Otherwise we make a single element array from the single object
     const messages = method === 'find' ? result.data : [result];
 
+    // Loop through and call the user endpoint with the user ID from the object. Then
+    // we replace the userId with the newly retrieved object
     await Promise.all(messages.map(async message => {
       message.user = await app.service('users').get(message.userId, params);
       delete message.userId;

@@ -1,3 +1,11 @@
+/** @module service/Doc-config  */
+
+/**
+ * Returns the configuration object for use with Swagger-UI
+ * @author Daniel Kivi
+ * @type Object
+ */
+
 module.exports = {
   'swagger': '2.0',
   'info': {

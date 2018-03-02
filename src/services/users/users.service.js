@@ -1,16 +1,24 @@
-// Initializes the `users` service on path `/users`
-const createService = require('feathers-mongodb');
-const hooks = require('./users.hooks');
+/**
+ * @module service/User
+ * @requires module:feathers-mongodb
+ * @requires module:hooks/User
+ */
 
+const createService = require('feathers-mongodb');
+const hooks = require('./hooks/User');
+
+/**
+ * Uses a configuration pattern to attach the users service
+ * @author Daniel Kivi
+ * @param app Feathers application
+ * @type {function(*)}
+ */
 module.exports = function (app) {
   const paginate = app.get('paginate');
   const mongoClient = app.get('mongoClient');
   const options = { paginate };
 
-  // Initialize our service with any options it requires
   app.use('/users', createService(options));
-
-  // Get our initialized service so that we can register hooks and filters
   const service = app.service('users');
 
   mongoClient.then(db => {

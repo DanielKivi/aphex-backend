@@ -34,8 +34,12 @@
 module.exports = () => {
   return async context => {
     const {method, result} = context;
+
+    // If we have an array of data from the find service, return the array.
+    // Otherwise we make a single element array from the single object
     const messages = method === 'find' ? result.data : [result];
 
+    // Loop through and pad the id with the file path
     await Promise.all(messages.map(async message => {
       message.path = `/uploads/${message.id}`;
     }));

@@ -1,7 +1,20 @@
-// Initializes the `sample` service on path `/sample`
+/**
+ * @module service/Sample
+ * @requires module:feathers-mongoose
+ * @requires module:model/Sample
+ * @requires module:hooks/Sample
+ */
+
 const createService = require('feathers-mongoose');
 const createModel = require('../../models/sample.model');
 const hooks = require('./sample.hooks');
+
+/**
+ * Uses a configuration pattern to attach the sample service
+ * @author Daniel Kivi
+ * @param app Feathers application
+ * @type {function(*)}
+ */
 
 module.exports = function (app) {
   const Model = createModel(app);
