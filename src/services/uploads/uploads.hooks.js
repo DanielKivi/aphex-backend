@@ -15,13 +15,13 @@ const addFilePath = require('../../hooks/add-file-path');
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ], // Authenticate all endpoints
+    all: [], // Authenticate all endpoints
     find: [],
     get: [],
-    create: [],
-    update: [],
-    patch: [],
-    remove: []
+    create: [authenticate('jwt')],
+    update: [ authenticate('jwt')],
+    patch: [authenticate('jwt')],
+    remove: [authenticate('jwt')]
   },
 
   after: {
