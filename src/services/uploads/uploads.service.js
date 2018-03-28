@@ -8,16 +8,20 @@
 const blobService = require('feathers-blob');
 const fs = require('fs-blob-store');
 const hooks = require('./uploads.hooks');
+const mime = require('mime-types');
 
 const blobStorage = fs('./uploads');
 
+// TODO: Make work with all filetypes
 function returnMP3(req, res, next) {
   if(res.hook.method !== 'get')
   {
     next();
   } else {
     let filePath = res.data.path;
-    res.type('mp3');
+    let mimetype = mime.lookup(filePath);
+
+    res.type(mimetype);
     res.download('./' + filePath);
   }
 }
