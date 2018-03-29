@@ -6,6 +6,7 @@
 
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const addFilePath = require('../../hooks/add-file-path');
+const removeURI = require('../../hooks/remove-uri');
 
 /**
  * Uploads endpoint hooks
@@ -26,9 +27,9 @@ module.exports = {
 
   after: {
     all: [],
-    find: [addFilePath()], // Add the file path to the file object
-    get: [addFilePath()], // Add the file path to the file object
-    create: [addFilePath()], // Add the file path to the file object
+    find: [addFilePath(), removeURI()], // Add the file path to the file object
+    get: [addFilePath(), removeURI()], // Add the file path to the file object
+    create: [addFilePath(), removeURI()], // Add the file path to the file object
     update: [],
     patch: [],
     remove: []

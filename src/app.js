@@ -4,6 +4,7 @@ const compress = require('compression');
 const cors = require('cors');
 const helmet = require('helmet');
 const logger = require('winston');
+const bodyParser = require('body-parser');
 
 const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
@@ -24,15 +25,19 @@ const mongodb = require('./mongodb');
 
 const app = express(feathers());
 
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit:50000}));
+app.use(bodyParser.json({limit: '50mb', type: 'application/json'}));
+
 // Load app configuration
 app.configure(configuration());
 // Enable CORS, security, compression, favicon and body parsing
 app.use(cors());
 app.use(helmet());
 app.use(compress());
-app.use(express.json());
+app.use(express.json({limit: '50mb', parameterLimit:50000}));
 app.use(express.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
+
 // Host the public folder
 app.use('/', express.static(app.get('public')));
 
