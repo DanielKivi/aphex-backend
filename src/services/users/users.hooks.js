@@ -5,6 +5,8 @@
  */
 
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const saveProfilePicture = require('../../hooks/save-profile-picture');
+const populateProfilePicture = require('../../hooks/populate-profile-picture');
 
 const {
   hashPassword, protect
@@ -21,7 +23,7 @@ module.exports = {
     all: [],
     find: [ authenticate('jwt') ], // Only authenticate if we are querying or modifying users
     get: [ authenticate('jwt') ], // Only authenticate if we are querying or modifying users
-    create: [ hashPassword() ], // Hash passwords
+    create: [ hashPassword(), saveProfilePicture()], // Hash passwords
     update: [ hashPassword(),  authenticate('jwt') ], // Hash passwords, and authenticate
     patch: [ hashPassword(),  authenticate('jwt') ], // Hash passwords, and authenticate
     remove: [ authenticate('jwt') ] // Only authenticate if we are querying or modifying users TODO: Limit this to admins
@@ -31,9 +33,9 @@ module.exports = {
     all: [
       protect('password') // Remove password before returning
     ],
-    find: [],
-    get: [],
-    create: [],
+    find: [populateProfilePicture()],
+    get: [populateProfilePicture()],
+    create: [populateProfilePicture()],
     update: [],
     patch: [],
     remove: []

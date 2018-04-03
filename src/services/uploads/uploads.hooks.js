@@ -19,7 +19,7 @@ module.exports = {
     all: [], // Authenticate all endpoints
     find: [],
     get: [],
-    create: [authenticate('jwt')],
+    create: [],
     update: [ authenticate('jwt')],
     patch: [authenticate('jwt')],
     remove: [authenticate('jwt')]

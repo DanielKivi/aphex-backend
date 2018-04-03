@@ -116,6 +116,10 @@ module.exports = {
                 'password': {
                   'type': 'string',
                   'example': 'secret'
+                },
+                'picture': {
+                  'type': 'string',
+                  'example': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAIAAAD2HxkiAAAAGXRFWHRTb2Z0...'
                 }
               }
             }
