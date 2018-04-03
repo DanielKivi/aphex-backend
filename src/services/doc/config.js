@@ -129,15 +129,7 @@ module.exports = {
           '201': {
             'description': 'Successful Operation',
             'schema': {
-              'type': 'object',
-              'properties': {
-                'email': {
-                  'type': 'string'
-                },
-                'id': {
-                  'type': 'string'
-                }
-              }
+              '$ref': '#/definitions/User'
             }
           },
           '401': {
@@ -389,6 +381,9 @@ module.exports = {
         'email': {
           'type': 'string',
           'description': 'The user\'s identifying email'
+        },
+        'picture': {
+          '$ref': '#/definitions/File'
         }
       }
     },
