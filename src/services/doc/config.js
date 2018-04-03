@@ -76,6 +76,9 @@ module.exports = {
                 'accessToken': {
                   'type': 'string',
                   'description': 'JWT Token'
+                },
+                'user': {
+                  '$ref': '#/definitions/User'
                 }
               }
             }
@@ -87,6 +90,68 @@ module.exports = {
       }
     },
     '/users': {
+      'get': {
+        'tags': [
+          'user'
+        ],
+        'summary': 'Get All Users',
+        'description': 'Returns a paginated response of Users',
+        'operationId': 'getUsers',
+        'produces': [
+          'application/json'
+        ],
+        'parameters': [
+          {
+            'in': 'query',
+            'name': '$limit',
+            'type': 'integer',
+            'description': 'Number of results to return (optional)'
+          },
+          {
+            'in': 'query',
+            'name': '$skip',
+            'type': 'integer',
+            'description': 'Number of results to skip (optional)'
+          }
+        ],
+        'responses': {
+          '200': {
+            'description': 'Successful Operation',
+            'schema': {
+              'type': 'object',
+              'properties': {
+                'total': {
+                  'type': 'integer',
+                  'description': 'Total Number of Users'
+                },
+                'limit': {
+                  'type': 'integer',
+                  'description': 'The maximum number of Users returned in this data object'
+                },
+                'skip': {
+                  'type': 'integer',
+                  'description': 'How many Users to skip'
+                },
+                'data': {
+                  'type': 'array',
+                  'description': 'An array of Users',
+                  'items': {
+                    '$ref': '#/definitions/User'
+                  }
+                }
+              }
+            }
+          },
+          '401': {
+            'description': 'Not Authorized'
+          }
+        },
+        'security': [
+          {
+            'JWT': []
+          }
+        ]
+      },
       'post': {
         'tags': [
           'user'
@@ -136,6 +201,86 @@ module.exports = {
             'description': 'Invalid Login'
           }
         }
+      }
+    },
+    '/users/{userId}': {
+      'get': {
+        'tags': [
+          'user'
+        ],
+        'summary': 'Get A User',
+        'description': 'Gets a user by a specific ID',
+        'operationId': 'getUserByID',
+        'produces': [
+          'application/json'
+        ],
+        'parameters': [
+          {
+            'name': 'userId',
+            'in': 'path',
+            'description': 'The ID of a user',
+            'required': true,
+            'type': 'string'
+          }
+        ],
+        'responses': {
+          '200': {
+            'description': 'Successful Operation',
+            'schema': {
+              '$ref': '#/definitions/User'
+            }
+          },
+          '400': {
+            'description': 'No User With ID Found'
+          },
+          '401': {
+            'description': 'Not Authorized'
+          }
+        },
+        'security': [
+          {
+            'JWT': []
+          }
+        ]
+      },
+      'delete': {
+        'tags': [
+          'user'
+        ],
+        'summary': 'Delete A User',
+        'description': 'Deletes a sample by a user ID',
+        'operationId': 'deleteUserByID',
+        'produces': [
+          'application/json'
+        ],
+        'parameters': [
+          {
+            'name': 'userId',
+            'in': 'path',
+            'description': 'The ID of a user',
+            'required': true,
+            'type': 'string'
+          }
+        ],
+        'responses': {
+          '200': {
+            'description': 'Successful Operation',
+            'schema': {
+              '$ref': '#/definitions/User'
+            }
+          },
+          '400': {
+            'description': 'No User With ID Found'
+          },
+          '401': {
+            'description': 'Not Authorized'
+          }
+        },
+        'security': [
+          {
+            'JWT': []
+          }
+        ]
       }
     },
     '/sample': {
