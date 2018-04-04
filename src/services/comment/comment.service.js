@@ -5,12 +5,10 @@ const hooks = require('./comment.hooks');
 
 module.exports = function (app) {
   const Model = createModel(app);
-  const paginate = app.get('paginate');
 
   const options = {
     name: 'comment',
-    Model,
-    paginate
+    Model
   };
 
   // Initialize our service with any options it requires

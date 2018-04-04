@@ -11,12 +11,31 @@ const mapSampleIdToData = ()  => {
   };
 };
 
+const populateUser = () => {
+  return async context => {
+    const {app, method, result, params} = context;
+
+    const messages = result;
+
+    await Promise.all(messages.map(async message => {
+      message.user = await app.service('users').get(message.userId, params);
+      delete message.userId;
+    }));
+
+    return context;
+  };
+};
+
 module.exports = {
   before: {
     all: [ authenticate('jwt'), mapSampleIdToData() ],
     find: [],
     get: [],
-    create: [],
+    create: [
+      context => { // Attach the current user's id to the object
+        context.data.userId = context.params.user._id;
+      }
+    ],
     update: [],
     patch: [],
     remove: []
@@ -24,9 +43,9 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
-    get: [],
-    create: [],
+    find: [populateUser()],
+    get: [populateUser()],
+    create: [populateUser()],
     update: [],
     patch: [],
     remove: []

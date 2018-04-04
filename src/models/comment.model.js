@@ -7,7 +7,8 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
   const comment = new Schema({
     comment: { type: String, required: true },
-    sampleId: { type: String, required: true }
+    sampleId: { type: String, required: true },
+    userId: { type: String, required: true}
   }, {
     timestamps: true
   });
