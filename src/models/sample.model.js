@@ -12,7 +12,8 @@ module.exports = function (app) {
   const sample = new Schema({
     name: { type: String, required: true },
     userId: { type: String, required: true},
-    fileId: { type: String, required: true }
+    fileId: { type: String, required: true },
+    description: { type: String, required: true}
   }, {
     timestamps: true
   });

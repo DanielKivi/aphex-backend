@@ -378,6 +378,11 @@ module.exports = {
                 'uri': {
                   'type': 'string',
                   'example': 'data:audio/mp3;base64,//uQRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAA9AADiVg....'
+                },
+                'description' : {
+                  'type': 'string',
+                  'example': 'A really cool sample',
+                  'required': false
                 }
               }
             }
