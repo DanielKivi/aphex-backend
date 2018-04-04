@@ -505,6 +505,9 @@ module.exports = {
         'name': {
           'type': 'string'
         },
+        'description': {
+          'type': 'string'
+        },
         'createdAt': {
           'type': 'string',
           'format': 'date-time'
