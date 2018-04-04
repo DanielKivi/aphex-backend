@@ -23,9 +23,13 @@ module.exports = {
     all: [],
     find: [ authenticate('jwt') ], // Only authenticate if we are querying or modifying users
     get: [ authenticate('jwt') ], // Only authenticate if we are querying or modifying users
-    create: [ hashPassword(), saveProfilePicture()], // Hash passwords
+    create: [ hashPassword(), saveProfilePicture(true) ], // Hash passwords
     update: [ hashPassword(),  authenticate('jwt') ], // Hash passwords, and authenticate
-    patch: [ hashPassword(),  authenticate('jwt') ], // Hash passwords, and authenticate
+    patch: [
+      hashPassword(),  authenticate('jwt'),
+      context => {
+        context.id = context.params.user._id;
+      }, saveProfilePicture(false) ], // Hash passwords, and authenticate
     remove: [ authenticate('jwt') ] // Only authenticate if we are querying or modifying users TODO: Limit this to admins
   },
 
@@ -37,7 +41,7 @@ module.exports = {
     get: [populateProfilePicture()],
     create: [populateProfilePicture()],
     update: [],
-    patch: [],
+    patch: [populateProfilePicture()],
     remove: []
   },
 
