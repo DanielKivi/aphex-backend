@@ -10,6 +10,7 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const populateUser = require('../../hooks/populate-user');
 const populateFile = require('../../hooks/populate-file');
+const populateComments = require('../../hooks/populate-comments');
 const saveFile = require('../../hooks/save-file');
 const querySample = require('../../hooks/query-sample');
 
@@ -37,9 +38,9 @@ module.exports = {
 
   after: {
     all: [],
-    find: [populateUser(), populateFile()], // Replace the fileId with a file object
-    get: [populateUser(), populateFile()], // Replace the fileId with a file object
-    create: [populateUser(), populateFile()], // Replace the fileId with a file object
+    find: [populateUser(), populateFile(), populateComments() ], // Replace the fileId with a file object
+    get: [populateUser(), populateFile(), populateComments() ], // Replace the fileId with a file object
+    create: [populateUser(), populateFile(), populateComments() ], // Replace the fileId with a file object
     update: [],
     patch: [],
     remove: []
