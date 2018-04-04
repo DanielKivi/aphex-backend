@@ -28,6 +28,11 @@ module.exports = function () {
       query.name = new RegExp(query.name, 'i');
     }
 
+    if (query.user) {
+      query.userId = new ObjectID(query.user);
+      delete query.user;
+    }
+
     context.params.query = query;
     return Promise.resolve(context);
   };

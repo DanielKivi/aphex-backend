@@ -364,6 +364,12 @@ module.exports = {
             'name': 'name',
             'type': 'integer',
             'description': 'Filter on name of the music sample. Will return any sample with a name containing the text'
+          },
+          {
+            'in': 'query',
+            'name': 'user',
+            'type': 'string',
+            'description': 'Filter on the user that uploaded the sample. Should be passed a user\'s ID'
           }
         ],
         'responses': {
