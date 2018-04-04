@@ -24,6 +24,10 @@ module.exports = {
       'description': 'Music Samples'
     },
     {
+      'name': 'comment',
+      'description': 'Comments on samples'
+    },
+    {
       'name': 'user',
       'description': 'Users of the application'
     }
@@ -158,7 +162,7 @@ module.exports = {
         ],
         'summary': 'Create a new user',
         'description': 'Used on registration to create a new user',
-        'operationId': 'login',
+        'operationId': 'createUser',
         'consumes': [
           'application/json'
         ],
@@ -169,7 +173,54 @@ module.exports = {
           {
             'in': 'body',
             'name': 'body',
-            'description': 'The username and password to create a new user with',
+            'description': 'The username and password to create a new user with, the picture is optional',
+            'required': true,
+            'schema': {
+              'type': 'object',
+              'properties': {
+                'email': {
+                  'type': 'string',
+                  'example': 'user@user.com'
+                },
+                'password': {
+                  'type': 'string',
+                  'example': 'secret'
+                },
+                'picture': {
+                  'type': 'string',
+                  'example': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAIAAAD2HxkiAAAAGXRFWHRTb2Z0...'
+                }
+              }
+            }
+          }
+        ],
+        'responses': {
+          '201': {
+            'description': 'Successful Operation',
+            'schema': {
+              '$ref': '#/definitions/User'
+            }
+          }
+        }
+      },
+      'patch': {
+        'tags': [
+          'user'
+        ],
+        'summary': 'Update a user',
+        'description': 'Updates the currently logged in user with new info',
+        'operationId': 'updateUser',
+        'consumes': [
+          'application/json'
+        ],
+        'produces': [
+          'application/json'
+        ],
+        'parameters': [
+          {
+            'in': 'body',
+            'name': 'body',
+            'description': 'Only provide the information you wish to have updated',
             'required': true,
             'schema': {
               'type': 'object',
@@ -202,6 +253,7 @@ module.exports = {
           }
         }
       }
+
     },
     '/users/{userId}': {
       'get': {
@@ -485,7 +537,100 @@ module.exports = {
           }
         ]
       }
-    }
+    },
+    '/sample/{sampleId}/comment': {
+      'get': {
+        'tags': [
+          'comment'
+        ],
+        'summary': 'Get all comments on a sample',
+        'description': 'Returns an array of comments',
+        'operationId': 'getComment',
+        'produces': [
+          'application/json'
+        ],
+        'parameters': [
+          {
+            'name': 'sampleId',
+            'in': 'path',
+            'description': 'The ID of a sample',
+            'required': true,
+            'type': 'string'
+          }
+        ],
+        'responses': {
+          '200': {
+            'description': 'Successful Operation',
+            'schema': {
+              'type': 'array',
+              'description': 'An array of Samples',
+              'items': {
+                '$ref': '#/definitions/Comment'
+              }
+            }
+          },
+          '401': {
+            'description': 'Not Authorized'
+          }
+        },
+        'security': [
+          {
+            'JWT': []
+          }
+        ]
+      },
+      'post': {
+        'tags': [
+          'comment'
+        ],
+        'summary': 'Create a New Comment',
+        'description': 'Created a new comment on a sample',
+        'operationId': 'createComment',
+        'produces': [
+          'application/json'
+        ],
+        'parameters': [
+          {
+            'name': 'sampleId',
+            'in': 'path',
+            'description': 'The ID of a sample that the comment will be saved to',
+            'required': true,
+            'type': 'string'
+          },
+          {
+            'in': 'body',
+            'name': 'body',
+            'description': 'The comment to save to',
+            'required': true,
+            'schema': {
+              'type': 'object',
+              'properties': {
+                'comment': {
+                  'type': 'string',
+                  'example': 'A really cool sound bite!'
+                }
+              }
+            }
+          }
+        ],
+        'responses': {
+          '201': {
+            'description': 'Successful Operation',
+            'schema': {
+              '$ref': '#/definitions/Comment'
+            }
+          },
+          '401': {
+            'description': 'Not Authorized'
+          }
+        },
+        'security': [
+          {
+            'JWT': []
+          }
+        ]
+      }
+    },
   },
   'securityDefinitions': {
     'JWT': {
@@ -521,6 +666,13 @@ module.exports = {
         },
         'file': {
           '$ref': '#/definitions/File'
+        },
+        'comments': {
+          'type': 'array',
+          'description': 'An array of comments',
+          'items': {
+            '$ref': '#/definitions/Comment'
+          }
         }
       }
     },
@@ -554,6 +706,31 @@ module.exports = {
         'path': {
           'type': 'string',
           'description': 'Absolute path to the file'
+        }
+      }
+    },
+    'Comment': {
+      'type': 'object',
+      'properties': {
+        '_id': {
+          'type': 'string'
+        },
+        'comment': {
+          'type': 'string'
+        },
+        'sampleId': {
+          'type': 'string'
+        },
+        'user': {
+          '$ref': '#/definitions/User'
+        },
+        'createdAt': {
+          'type': 'string',
+          'format': 'date-time'
+        },
+        'updatedAt': {
+          'type': 'string',
+          'format': 'date-time'
         }
       }
     }
