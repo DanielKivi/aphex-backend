@@ -370,6 +370,12 @@ module.exports = {
             'name': 'user',
             'type': 'string',
             'description': 'Filter on the user that uploaded the sample. Should be passed a user\'s ID'
+          },
+          {
+            'in': 'query',
+            'name': 'type',
+            'type': 'string',
+            'description': 'Filter on the type of sample.'
           }
         ],
         'responses': {
@@ -440,7 +446,10 @@ module.exports = {
                 'description' : {
                   'type': 'string',
                   'example': 'A really cool sample',
-                  'required': false
+                },
+                'type': {
+                  'type': 'string',
+                  'example': 'demo|sample|preview'
                 }
               }
             }
@@ -657,6 +666,9 @@ module.exports = {
           'type': 'string'
         },
         'description': {
+          'type': 'string'
+        },
+        'type': {
           'type': 'string'
         },
         'createdAt': {

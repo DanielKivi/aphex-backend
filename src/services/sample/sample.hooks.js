@@ -28,6 +28,7 @@ module.exports = {
       context => { // Attach the current user's id to the object
         context.data.userId = context.params.user._id;
         if(!context.data.description) context.data.description = 'No description';
+        if(!context.data.type) context.data.type = 'sample';
       },
       saveFile() // Send the data url for saving
     ],
