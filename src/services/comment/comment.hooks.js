@@ -15,8 +15,6 @@ const populateUser = () => {
   return async context => {
     const {app, method, result, params} = context;
 
-
-    console.log(result);
     const messages = (Array.isArray(result)) ? result : [result];
 
     await Promise.all(messages.map(async message => {

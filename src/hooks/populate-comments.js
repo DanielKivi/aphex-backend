@@ -12,6 +12,9 @@ module.exports = () => {
     await Promise.all(messages.map(async message => {
       message.comments = await app.service('sample/:sampleId/comment').find({
         query: Object.assign({
+          $sort: {
+            createdAt: -1
+          },
           sampleId: message._id
         }, params.query)
       });
