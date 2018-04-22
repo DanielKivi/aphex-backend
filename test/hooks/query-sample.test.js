@@ -1,6 +1,6 @@
 const assert = require('assert');
 const feathers = require('@feathersjs/feathers');
-const querySample = require('../../src/hooks/query-sample');
+const querySample = require('../../src/hooks/samples/query-sample');
 
 describe('\'query-sample\' hook', () => {
   let app;

@@ -1,4 +1,4 @@
-/** @module hooks/add-file-path */
+/** @module hooks/uploads/populate-file */
 
 /**
  * Replaces fileId in an object with it's corresponding file object
@@ -33,15 +33,19 @@
 
 module.exports = () => {
   return async context => {
-    const {method, result} = context;
+    const {app, method, result, params} = context;
 
     // If we have an array of data from the find service, return the array.
     // Otherwise we make a single element array from the single object
     const messages = method === 'find' ? result.data : [result];
 
-    // Loop through and pad the id with the file path
+
+    // Loop through and call the fil endpoint with the file ID from the object. Then
+    // we replace the fileId with the newly retrieved object
     await Promise.all(messages.map(async message => {
-      message.path = `/uploads/${message.id}`;
+      message.file = await app.service('uploads').get(message.fileId, params);
+      delete message.file.uri;
+      delete message.fileId;
     }));
 
     return context;

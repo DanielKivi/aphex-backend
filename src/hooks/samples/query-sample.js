@@ -1,4 +1,4 @@
-/** @module hooks/querySample
+/** @module hooks/samples/query-sample
  *  @requires module:mongodb
  **/
 
@@ -28,6 +28,7 @@ module.exports = function () {
       query.name = new RegExp(query.name, 'i');
     }
 
+    // Allows us to search by user ID
     if (query.user) {
       query.userId = new ObjectID(query.user);
       delete query.user;

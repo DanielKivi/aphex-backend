@@ -1,4 +1,4 @@
-/** @module hooks/populate-file */
+/** @module hooks/comments/populate-comments **/
 
 /**
  * Replaces fileId in an object with it's corresponding file object
@@ -39,13 +39,18 @@ module.exports = () => {
     // Otherwise we make a single element array from the single object
     const messages = method === 'find' ? result.data : [result];
 
-
     // Loop through and call the fil endpoint with the file ID from the object. Then
     // we replace the fileId with the newly retrieved object
     await Promise.all(messages.map(async message => {
-      message.file = await app.service('uploads').get(message.fileId, params);
-      delete message.file.uri;
-      delete message.fileId;
+      // Get comments and sort by newest first
+      message.comments = await app.service('sample/:sampleId/comment').find({
+        query: Object.assign({
+          $sort: {
+            createdAt: -1
+          },
+          sampleId: message._id
+        }, params.query)
+      });
     }));
 
     return context;

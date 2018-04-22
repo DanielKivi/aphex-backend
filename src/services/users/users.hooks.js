@@ -2,11 +2,13 @@
  * @module hooks/User
  * @requires module:@feathersjs/authentication
  * @requires module:@feathersjs/authentication-local
+ * @requires module:hooks/users/save-profile-picture
+ * @requires module:hooks/users/populate-profile-picture
  */
 
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const saveProfilePicture = require('../../hooks/save-profile-picture');
-const populateProfilePicture = require('../../hooks/populate-profile-picture');
+const saveProfilePicture = require('../../hooks/users/save-profile-picture');
+const populateProfilePicture = require('../../hooks/users/populate-profile-picture');
 
 const {
   hashPassword, protect

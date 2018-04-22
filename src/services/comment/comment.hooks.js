@@ -1,16 +1,18 @@
+/**
+ * @module hooks/Comment
+ * @requires module:@feathersjs/authentication
+ * @requires module:hooks/samples/get-sample-from-url
+ */
+
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const getSampleFromURL = require('../../hooks/samples/get-sample-from-url');
 
-const mapSampleIdToData = ()  => {
-  return async context => {
-    if (context.data && context.params.route.sampleId) {
-      context.data.sampleId = context.params.route.sampleId;
-      context.params.query.sampleId = context.params.route.sampleId;
-    }
-
-    return Promise.resolve(context);
-  };
-};
-
+/**
+ * Since we manually inject the user into this object, we run into some difficulties
+ * using the normal hyrator. This would be something I would consider a bug and a TODO
+ * @author Daniel Kivi
+ * @type Object
+ */
 const populateUser = () => {
   return async context => {
     const {app, method, result, params} = context;
@@ -28,7 +30,7 @@ const populateUser = () => {
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt'), mapSampleIdToData() ],
+    all: [ authenticate('jwt'), getSampleFromURL() ], // Attaches the sample id from the URL
     find: [],
     get: [],
     create: [
@@ -43,9 +45,9 @@ module.exports = {
 
   after: {
     all: [],
-    find: [populateUser()],
-    get: [populateUser()],
-    create: [populateUser()],
+    find: [populateUser()], // Attach the user object of whoever made the comment
+    get: [populateUser()], // Attach the user object of whoever made the comment
+    create: [populateUser()], // Attach the user object of whoever made the comment
     update: [],
     patch: [],
     remove: []

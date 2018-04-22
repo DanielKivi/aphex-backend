@@ -1,7 +1,11 @@
-// comment-model.js - A mongoose model
-//
-// See http://mongoosejs.com/docs/models.html
-// for more of what you can do here.
+/** @module model/Comment */
+
+/**
+ * The Mongoose model for the comment endpoint
+ * @author Daniel Kivi
+ * @param app Feathers application (configuration)
+ * @returns {} Mongoose Model
+ */
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;

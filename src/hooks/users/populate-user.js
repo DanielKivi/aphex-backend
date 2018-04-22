@@ -1,4 +1,4 @@
-/** @module hooks/populate-user */
+/** @module hooks/users/populate-user */
 
 /**
  * Replaces userId in an object with it's corresponding user object
